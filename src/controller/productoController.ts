@@ -14,6 +14,19 @@ class ProductoController {
   public async list(req: Request, res: Response): Promise<void> {
     const data = await pool.query(
     //  "select producto.idProducto, producto.idCategoria, producto.name as producto, producto.image, producto.precio, producto.stock, producto.descripcion, unidad.name as unidades from producto inner join unidad on producto.idUnidad = unidad.idUnidad; ", 
+     "  select producto.idProducto, producto.idSubCategoria, producto.name as producto, producto.image, producto.precio, producto.stock, producto.descripcion, unidad.name as unidades from producto inner join unidad on producto.idUnidad = unidad.idUnidad ",
+     
+      (err, result, field) => {
+        if (!err) {
+          res.json(result);
+        }
+      }
+    );
+  }
+
+  public async listProduct(req: Request, res: Response): Promise<void> {
+    const data = await pool.query(
+    //  "select producto.idProducto, producto.idCategoria, producto.name as producto, producto.image, producto.precio, producto.stock, producto.descripcion, unidad.name as unidades from producto inner join unidad on producto.idUnidad = unidad.idUnidad; ", 
      "  select producto.idProducto, producto.idSubCategoria, producto.name, producto.image, producto.precio, producto.stock, producto.descripcion, unidad.name as unidades from producto inner join unidad on producto.idUnidad = unidad.idUnidad ",
      
       (err, result, field) => {
